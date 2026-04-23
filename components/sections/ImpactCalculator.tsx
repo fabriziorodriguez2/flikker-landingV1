@@ -81,28 +81,28 @@ export function ImpactCalculator() {
   return (
     <section
       id="calculadora"
-      className="scroll-mt-20 bg-gradient-to-b from-mist to-periwinkle/10 px-6 py-24 md:px-8 md:py-32"
+      className="scroll-mt-20 bg-gradient-to-b from-mist to-periwinkle/10 px-6 py-16 md:px-8 md:py-24"
     >
-      <div className="mx-auto max-w-4xl text-midnight">
+      <div className="mx-auto max-w-3xl text-midnight">
         <div className="text-center">
-          <span className="text-[12px] font-semibold tracking-[0.18em] uppercase text-periwinkle">
+          <span className="text-[11px] font-semibold tracking-[0.18em] uppercase text-periwinkle">
             Calculá tu impacto
           </span>
-          <h2 className="font-display mt-4 text-[32px] leading-[1.1] tracking-[-0.02em] font-extrabold md:text-[48px]">
+          <h2 className="font-display mt-3 text-[26px] leading-[1.1] tracking-[-0.02em] font-extrabold md:text-[36px]">
             ¿Cuántas reseñas podrías tener en 60 días?
           </h2>
         </div>
 
-        <div className="mt-12 rounded-2xl border border-midnight/10 bg-white/70 p-8 shadow-sm backdrop-blur-sm md:p-12">
+        <div className="mt-8 rounded-2xl border border-midnight/10 bg-white/70 p-6 shadow-sm backdrop-blur-sm md:p-8">
           <label htmlFor="patients" className="block">
-            <span className="text-sm font-medium text-midnight/70">
+            <span className="text-xs font-medium text-midnight/70">
               Atiendo
             </span>
-            <div className="mt-2 flex items-baseline gap-3">
-              <span className="font-display text-[56px] font-extrabold leading-none text-periwinkle tabular-nums md:text-[72px]">
+            <div className="mt-1.5 flex items-baseline gap-2.5">
+              <span className="font-display text-[40px] font-extrabold leading-none text-periwinkle tabular-nums md:text-[52px]">
                 {patients}
               </span>
-              <span className="text-base font-medium text-midnight/70 md:text-lg">
+              <span className="text-sm font-medium text-midnight/70 md:text-base">
                 pacientes por mes
               </span>
             </div>
@@ -121,43 +121,42 @@ export function ImpactCalculator() {
             aria-valuetext={`${patients} pacientes por mes`}
             className={sliderClasses}
           />
-          <div className="mt-2 flex justify-between text-xs font-medium text-midnight/50">
+          <div className="mt-1.5 flex justify-between text-[11px] font-medium text-midnight/50">
             <span>{slider.min}</span>
             <span>{slider.max}+</span>
           </div>
 
-          <hr className="my-10 border-midnight/10" />
+          <hr className="my-6 border-midnight/10" />
 
-          <ul className="space-y-6">
-            <li className="flex flex-col items-start gap-1 md:flex-row md:items-baseline md:gap-4">
-              <span className="font-display text-[28px] font-extrabold leading-none text-periwinkle md:text-[36px]">
+          <ul className="space-y-4">
+            <li className="flex flex-col items-start gap-0.5 md:flex-row md:items-baseline md:gap-3">
+              <span className="font-display text-[22px] font-extrabold leading-none text-periwinkle md:text-[28px]">
                 ~<CountUp value={reviews} />
               </span>
-              <span className="text-base text-midnight/80 md:text-lg">
+              <span className="text-sm text-midnight/80 md:text-base">
                 reseñas nuevas en Google
               </span>
             </li>
-            <li className="flex flex-col items-start gap-1 md:flex-row md:items-baseline md:gap-4">
-              <span className="font-display text-[28px] font-extrabold leading-none text-periwinkle md:text-[36px]">
+            <li className="flex flex-col items-start gap-0.5 md:flex-row md:items-baseline md:gap-3">
+              <span className="font-display text-[22px] font-extrabold leading-none text-periwinkle md:text-[28px]">
                 +<CountUp value={reactivations} />
               </span>
-              <span className="text-base text-midnight/80 md:text-lg">
+              <span className="text-sm text-midnight/80 md:text-base">
                 pacientes reactivados
               </span>
             </li>
-            <li className="flex flex-col items-start gap-1 md:flex-row md:items-baseline md:gap-4">
-              <span className="font-display text-[28px] font-extrabold leading-none text-periwinkle md:text-[36px]">
+            <li className="flex flex-col items-start gap-0.5 md:flex-row md:items-baseline md:gap-3">
+              <span className="font-display text-[22px] font-extrabold leading-none text-periwinkle md:text-[28px]">
                 de ~12% a ~35%
               </span>
-              <span className="text-base text-midnight/80 md:text-lg">
+              <span className="text-sm text-midnight/80 md:text-base">
                 de búsquedas locales
               </span>
             </li>
           </ul>
 
-          <div className="mt-10 flex justify-center">
+          <div className="mt-7 flex justify-center">
             <WhatsAppButton
-              size="xl"
               message={message}
               onClick={() =>
                 trackEvent("Calculator Submit", {

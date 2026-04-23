@@ -5,7 +5,7 @@
  * Formato E.164 sin el "+" (es lo que wa.me espera).
  */
 
-export const WHATSAPP_NUMBER = "59899000000"; // placeholder Uruguay +598 99 000 000
+export const WHATSAPP_NUMBER = "59891624988"; // placeholder Uruguay +598 99 000 000
 
 type WhatsAppMessageKey =
   | "nav"

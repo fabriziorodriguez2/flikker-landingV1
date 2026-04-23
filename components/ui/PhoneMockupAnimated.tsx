@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils";
  * Con prefers-reduced-motion se muestra solo la pantalla 1, estática.
  */
 
-const SCREEN_DURATIONS_MS = [2000, 1000, 1000, 2000, 1000];
+const SCREEN_DURATIONS_MS = [5000, 2000, 3000, 3000, 2000];
 
 const fadeTransition: Transition = { duration: 0.35, ease: "easeInOut" };
 
@@ -108,7 +108,7 @@ function WhatsAppScreen() {
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.25, delay: 0.1 }}
-          className="max-w-[85%] rounded-lg rounded-tl-sm bg-white px-2.5 py-2 text-[10px] leading-snug shadow-sm"
+          className="max-w-[85%] rounded-lg rounded-tl-sm bg-white px-2.5 py-2 text-[10px] leading-snug text-zinc-800 shadow-sm"
         >
           Hola María 👋 Gracias por venir hoy a Clínica Sonrisa.
         </motion.div>
@@ -116,7 +116,7 @@ function WhatsAppScreen() {
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.25, delay: 0.45 }}
-          className="max-w-[85%] rounded-lg rounded-tl-sm bg-white px-2.5 py-2 text-[10px] leading-snug shadow-sm"
+          className="max-w-[85%] rounded-lg rounded-tl-sm bg-white px-2.5 py-2 text-[10px] leading-snug text-zinc-800 shadow-sm"
         >
           ¿Nos ayudás contándonos cómo fue tu experiencia? Son 30 segundos.
         </motion.div>
@@ -124,9 +124,25 @@ function WhatsAppScreen() {
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.25, delay: 0.85 }}
-          className="max-w-[85%] rounded-lg rounded-tl-sm bg-white px-2.5 py-2 text-[10px] leading-snug shadow-sm"
+          className="max-w-[85%] rounded-lg rounded-tl-sm bg-white px-2.5 py-2 text-[10px] leading-snug text-zinc-800 shadow-sm"
         >
-          <span className="font-semibold text-[#128c7e]">flikker.app/r/x82</span>
+          <span className="font-semibold text-[#128c7e]">flikker.app/r/clinica-sonrisa</span>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.25, delay: 1.6 }}
+          className="ml-auto max-w-[85%] rounded-lg rounded-tr-sm bg-[#dcf8c6] px-2.5 py-2 text-[10px] leading-snug text-zinc-800 shadow-sm"
+        >
+          ¡Genial! La atención fue súper amable y rápida 😊
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.25, delay: 2.3 }}
+          className="ml-auto max-w-[85%] rounded-lg rounded-tr-sm bg-[#dcf8c6] px-2.5 py-2 text-[10px] leading-snug text-zinc-800 shadow-sm"
+        >
+          Ya les dejé la reseña ⭐️⭐️⭐️⭐️⭐️
         </motion.div>
       </div>
 

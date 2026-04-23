@@ -73,7 +73,7 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: [{ url: "/brand/flikker-logo.svg", type: "image/svg+xml" }],
+    icon: [{ url: "/brand/flikker-isotype.svg", type: "image/svg+xml" }],
   },
 };
 

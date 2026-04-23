@@ -8,7 +8,6 @@ import { ImpactCalculator } from "@/components/sections/ImpactCalculator";
 import { Navbar } from "@/components/sections/Navbar";
 import { Pricing } from "@/components/sections/Pricing";
 import { Problem } from "@/components/sections/Problem";
-import { SocialProofBar } from "@/components/sections/SocialProofBar";
 import { Solution } from "@/components/sections/Solution";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
@@ -20,7 +19,6 @@ export default function Home() {
       <Navbar />
       <main className="flex flex-1 flex-col">
         <Hero />
-        <SocialProofBar />
         <Problem />
         <Solution />
         <Demo />

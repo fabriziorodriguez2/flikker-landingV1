@@ -44,7 +44,7 @@ export function Problem() {
             El problema
           </span>
           <h2 className="font-display mt-4 max-w-3xl text-[32px] leading-[1.1] tracking-[-0.02em] font-extrabold md:text-[48px]">
-            Atendés bárbaro. Google dice otra cosa.
+            Atendés excelente. Google dice otra cosa.
           </h2>
         </motion.div>
 

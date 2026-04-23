@@ -1,127 +1,46 @@
 "use client";
 
-import { Fragment } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import {
+  CheckCircle2,
+  Globe,
+  MessageCircle,
+  RefreshCcw,
+  Star,
+} from "lucide-react";
 
 const steps = [
   {
-    number: "01",
+    icon: CheckCircle2,
     title: "El paciente termina la consulta",
-    body: "Se va como siempre. Ni papeles, ni pedidos incómodos cara a cara.",
+    body: "Se va como siempre. Nadie le pide una reseña cara a cara.",
   },
   {
-    number: "02",
-    title: "Flikker le escribe por WhatsApp",
-    body: "Un mensaje corto con tu nombre. Sin links raros ni formularios largos.",
+    icon: MessageCircle,
+    title: "Flikker le manda un WhatsApp",
+    body: "Un mensaje breve con tu nombre. Califica en un toque.",
   },
   {
-    number: "03",
+    icon: Star,
     title: "La reseña buena llega a Google",
-    body: "Las negativas te avisan primero a vos, en privado, antes de ser públicas.",
+    body: "Las negativas te avisan primero a vos, en privado.",
+  },
+  {
+    icon: Globe,
+    title: "Se muestran en tu web",
+    body: "Un widget embebible con tus reseñas reales.",
+  },
+  {
+    icon: RefreshCcw,
+    title: "Volvés a estar presente",
+    body: "A los 30, 60, 90 días les recordamos volver. Reservan más.",
   },
 ];
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0 },
 };
-
-function StepIllustration({ variant }: { variant: number }) {
-  const common = "h-full w-full";
-  if (variant === 0) {
-    return (
-      <svg viewBox="0 0 160 80" className={common} aria-hidden="true">
-        <rect
-          x="12"
-          y="12"
-          width="136"
-          height="56"
-          rx="8"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeDasharray="4 4"
-          opacity="0.5"
-        />
-        <circle cx="40" cy="40" r="10" fill="currentColor" opacity="0.25" />
-        <rect
-          x="60"
-          y="34"
-          width="70"
-          height="4"
-          rx="2"
-          fill="currentColor"
-          opacity="0.35"
-        />
-        <rect
-          x="60"
-          y="44"
-          width="50"
-          height="4"
-          rx="2"
-          fill="currentColor"
-          opacity="0.2"
-        />
-      </svg>
-    );
-  }
-  if (variant === 1) {
-    return (
-      <svg viewBox="0 0 160 80" className={common} aria-hidden="true">
-        <rect
-          x="24"
-          y="14"
-          width="112"
-          height="36"
-          rx="12"
-          fill="currentColor"
-          opacity="0.22"
-        />
-        <rect
-          x="36"
-          y="26"
-          width="66"
-          height="4"
-          rx="2"
-          fill="currentColor"
-          opacity="0.55"
-        />
-        <rect
-          x="36"
-          y="36"
-          width="44"
-          height="4"
-          rx="2"
-          fill="currentColor"
-          opacity="0.4"
-        />
-        <path
-          d="M40 50 L30 66"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          opacity="0.3"
-        />
-      </svg>
-    );
-  }
-  return (
-    <svg viewBox="0 0 160 80" className={common} aria-hidden="true">
-      <polygon
-        points="80,14 90,36 114,38 96,54 102,76 80,64 58,76 64,54 46,38 70,36"
-        fill="currentColor"
-        opacity="0.35"
-      />
-      <polygon
-        points="80,14 90,36 114,38 96,54 102,76 80,64 58,76 64,54 46,38 70,36"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        opacity="0.6"
-      />
-    </svg>
-  );
-}
 
 export function Solution() {
   const shouldReduceMotion = useReducedMotion();
@@ -139,51 +58,80 @@ export function Solution() {
           viewport={{ once: true, margin: "-80px" }}
           variants={fadeUp}
           transition={{ duration: 0.5, ease: "easeOut" }}
+          className="max-w-3xl"
         >
           <span className="text-[12px] font-semibold tracking-[0.18em] uppercase text-periwinkle">
             La solución
           </span>
-          <h2 className="font-display mt-4 max-w-3xl text-[32px] leading-[1.1] tracking-[-0.02em] font-extrabold md:text-[48px]">
-            Flikker hace lo que vos no tenés tiempo.
+          <h2 className="font-display mt-4 text-[32px] leading-[1.1] tracking-[-0.02em] font-extrabold md:text-[48px]">
+            De la consulta a la reseña. De la reseña al próximo paciente.
           </h2>
+          <p className="mt-5 text-base leading-[1.6] text-mist/70 md:text-lg">
+            Un flujo continuo que convierte pacientes felices en reputación, y
+            reputación en nuevos turnos. Vos no tocás nada.
+          </p>
         </motion.div>
 
-        <motion.div
+        {/* Timeline */}
+        <div className="relative mt-20">
+          {/* Connecting line — desktop */}
+          <div
+            aria-hidden="true"
+            className="absolute left-0 right-0 top-5 hidden h-px bg-gradient-to-r from-transparent via-periwinkle/40 to-transparent md:block"
+          />
+
+          <motion.ol
+            initial={initial}
+            whileInView="show"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={{
+              hidden: {},
+              show: {
+                transition: { staggerChildren: 0.1, delayChildren: 0.15 },
+              },
+            }}
+            className="grid gap-10 md:grid-cols-5 md:gap-6"
+          >
+            {steps.map((step) => {
+              const Icon = step.icon;
+              return (
+                <motion.li
+                  key={step.title}
+                  variants={fadeUp}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  className="relative flex flex-col items-start md:items-center md:text-center"
+                >
+                  {/* Node */}
+                  <div className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-midnight ring-2 ring-periwinkle">
+                    <Icon
+                      className="h-[18px] w-[18px] text-periwinkle"
+                      strokeWidth={2}
+                      aria-hidden="true"
+                    />
+                  </div>
+
+                  <h3 className="mt-5 text-base font-bold leading-tight md:text-[17px]">
+                    {step.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-[1.55] text-mist/65 md:text-[14px]">
+                    {step.body}
+                  </p>
+                </motion.li>
+              );
+            })}
+          </motion.ol>
+        </div>
+
+        <motion.p
           initial={initial}
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
-          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } } }}
-          className="mt-16 flex flex-col gap-14 md:flex-row md:items-start md:gap-0"
+          variants={fadeUp}
+          transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
+          className="mt-16 text-center text-sm text-mist/50"
         >
-          {steps.map((step, i) => (
-            <Fragment key={step.number}>
-              <motion.div
-                variants={fadeUp}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                className="flex-1"
-              >
-                <span className="font-display block text-[72px] font-extrabold leading-none text-periwinkle md:text-[88px]">
-                  {step.number}
-                </span>
-                <div className="mt-6 flex h-24 items-center justify-center rounded-lg bg-mist/5 ring-1 ring-mist/10 text-periwinkle md:h-28">
-                  <StepIllustration variant={i} />
-                </div>
-                <h3 className="mt-6 text-lg font-bold md:text-xl">
-                  {step.title}
-                </h3>
-                <p className="mt-3 text-base leading-[1.55] text-mist/70">
-                  {step.body}
-                </p>
-              </motion.div>
-              {i < steps.length - 1 && (
-                <div
-                  aria-hidden="true"
-                  className="hidden md:mt-12 md:mx-6 md:h-px md:w-16 md:flex-none md:border-t-2 md:border-dashed md:border-periwinkle/40 md:block"
-                />
-              )}
-            </Fragment>
-          ))}
-        </motion.div>
+          El ciclo se repite con cada paciente. Automático. Sin intervención.
+        </motion.p>
       </div>
     </section>
   );

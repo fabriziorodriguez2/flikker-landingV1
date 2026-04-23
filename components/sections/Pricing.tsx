@@ -1,3 +1,7 @@
+"use client";
+
+import type { MouseEvent } from "react";
+import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import { Check } from "lucide-react";
 
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
@@ -71,91 +75,113 @@ const plans: Plan[] = [
 function PlanCard({ plan }: { plan: Plan }) {
   const highlighted = plan.highlighted === true;
 
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    mouseX.set(e.clientX - rect.left);
+    mouseY.set(e.clientY - rect.top);
+  };
+
+  const glowColor = highlighted
+    ? "rgba(145, 136, 245, 0.35)"
+    : "rgba(145, 136, 245, 0.22)";
+
+  const background = useMotionTemplate`radial-gradient(260px circle at ${mouseX}px ${mouseY}px, ${glowColor}, transparent 70%)`;
+
   return (
-    <div
+    <motion.div
+      onMouseMove={handleMouseMove}
+      whileHover={{ y: -6 }}
+      transition={{ type: "spring", stiffness: 280, damping: 22 }}
       className={cn(
-        "relative flex flex-col rounded-2xl p-8 md:p-10",
+        "group relative flex flex-col rounded-2xl p-8 md:p-10 transition-[box-shadow,border-color] duration-300",
         highlighted
-          ? "bg-mist text-midnight shadow-xl ring-1 ring-periwinkle/40 lg:scale-[1.05] lg:z-10"
-          : "bg-[#0a0f4a] text-mist border border-mist/10"
+          ? "bg-mist text-midnight shadow-xl ring-1 ring-periwinkle/40 hover:shadow-[0_30px_60px_-20px_rgba(145,136,245,0.55)] lg:scale-[1.05] lg:z-10"
+          : "bg-[#0a0f4a] text-mist border border-mist/10 hover:border-periwinkle/50 hover:shadow-[0_25px_50px_-20px_rgba(145,136,245,0.4)]"
       )}
     >
+      {/* Cursor-following glow */}
+      <motion.div
+        aria-hidden="true"
+        style={{ background }}
+        className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+      />
+
       {highlighted && (
         <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-periwinkle px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-midnight shadow-sm">
           Recomendado
         </span>
       )}
 
-      <h3
-        className={cn(
-          "text-sm font-bold uppercase tracking-[0.14em]",
-          highlighted ? "text-periwinkle" : "text-periwinkle"
-        )}
-      >
-        {plan.name}
-      </h3>
+      <div className="relative">
+        <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-periwinkle">
+          {plan.name}
+        </h3>
 
-      <div className="mt-5 flex items-baseline gap-2">
-        <span className="font-display text-[44px] font-extrabold leading-none text-periwinkle md:text-[56px]">
-          {plan.price}
-        </span>
-        <span
+        <div className="mt-5 flex items-baseline gap-2">
+          <span className="font-display text-[44px] font-extrabold leading-none text-periwinkle md:text-[56px]">
+            {plan.price}
+          </span>
+          <span
+            className={cn(
+              "text-sm font-medium",
+              highlighted ? "text-midnight/60" : "text-mist/60"
+            )}
+          >
+            {plan.priceSuffix}
+          </span>
+        </div>
+        <p
           className={cn(
-            "text-sm font-medium",
-            highlighted ? "text-midnight/60" : "text-mist/60"
+            "mt-2 text-xs font-medium uppercase tracking-[0.08em]",
+            highlighted ? "text-midnight/50" : "text-mist/50"
           )}
         >
-          {plan.priceSuffix}
-        </span>
-      </div>
-      <p
-        className={cn(
-          "mt-2 text-xs font-medium uppercase tracking-[0.08em]",
-          highlighted ? "text-midnight/50" : "text-mist/50"
-        )}
-      >
-        {plan.setup}
-      </p>
+          {plan.setup}
+        </p>
 
-      <p
-        className={cn(
-          "mt-5 text-sm leading-[1.5]",
-          highlighted ? "text-midnight/70" : "text-mist/70"
-        )}
-      >
-        {plan.tagline}
-      </p>
-
-      <ul className="mt-7 flex-1 space-y-3">
-        {plan.features.map((feature) => (
-          <li key={feature} className="flex items-start gap-3">
-            <Check
-              aria-hidden="true"
-              className="mt-0.5 size-5 shrink-0 text-periwinkle"
-              strokeWidth={2.5}
-            />
-            <span
-              className={cn(
-                "text-sm leading-[1.5]",
-                highlighted ? "text-midnight/85" : "text-mist/85"
-              )}
-            >
-              {feature}
-            </span>
-          </li>
-        ))}
-      </ul>
-
-      <div className="mt-8">
-        <WhatsAppButton
-          variant={highlighted ? "primary" : "secondary"}
-          message={plan.message}
-          className="w-full justify-center"
+        <p
+          className={cn(
+            "mt-5 text-sm leading-[1.5]",
+            highlighted ? "text-midnight/70" : "text-mist/70"
+          )}
         >
-          {plan.cta}
-        </WhatsAppButton>
+          {plan.tagline}
+        </p>
+
+        <ul className="mt-7 flex-1 space-y-3">
+          {plan.features.map((feature) => (
+            <li key={feature} className="flex items-start gap-3">
+              <Check
+                aria-hidden="true"
+                className="mt-0.5 size-5 shrink-0 text-periwinkle"
+                strokeWidth={2.5}
+              />
+              <span
+                className={cn(
+                  "text-sm leading-[1.5]",
+                  highlighted ? "text-midnight/85" : "text-mist/85"
+                )}
+              >
+                {feature}
+              </span>
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-8">
+          <WhatsAppButton
+            variant={highlighted ? "primary" : "secondary"}
+            message={plan.message}
+            className="w-full justify-center"
+          >
+            {plan.cta}
+          </WhatsAppButton>
+        </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

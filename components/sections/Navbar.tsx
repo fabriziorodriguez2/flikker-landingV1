@@ -7,11 +7,6 @@ import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import { NAV_LINKS, WHATSAPP_MESSAGES } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
-/**
- * Navbar sticky.
- * - Estado inicial (sobre el hero midnight): fondo transparente, logo y links en Mist.
- * - Al scrollear >20px: backdrop-blur + bg-mist/80, logo y links en Midnight.
- */
 export function Navbar() {
   const scrolled = useScrolled(20);
 
@@ -21,7 +16,7 @@ export function Navbar() {
         "sticky top-0 z-40 w-full transition-colors duration-200",
         scrolled
           ? "bg-mist/80 backdrop-blur-md border-b border-midnight/5"
-          : "bg-transparent"
+          : "bg-mist/80"
       )}
     >
       <nav
@@ -31,11 +26,11 @@ export function Navbar() {
         <a
           href="#top"
           aria-label="Flikker — Ir al inicio"
-          className="flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-periwinkle rounded-sm"
+          className="flex items-center rounded-sm transition-colors hover:text-periwinkle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-periwinkle"
         >
           <Logo
-            variant={scrolled ? "default" : "inverse"}
-            className="h-7 w-auto md:h-8"
+            variant="wordmark"
+            className="h-8 w-auto text-midnight md:h-10"
           />
         </a>
 
@@ -49,7 +44,7 @@ export function Navbar() {
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-periwinkle focus-visible:ring-offset-2",
                   scrolled
                     ? "text-midnight focus-visible:ring-offset-mist"
-                    : "text-mist focus-visible:ring-offset-midnight"
+                    : "text-midnight focus-visible:ring-offset-mist"
                 )}
               >
                 {label}
