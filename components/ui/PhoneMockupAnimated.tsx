@@ -12,15 +12,15 @@ import { Star } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { cn } from "@/lib/utils";
 
-/**
- * iPhone mockup con 5 pantallas que ciclan.
- * Total del loop: ~7 segundos (2 + 1 + 1 + 2 + 1).
- * Con prefers-reduced-motion se muestra solo la pantalla 1, estática.
- */
-
 const SCREEN_DURATIONS_MS = [5000, 2000, 3000, 3000, 2000];
 
 const fadeTransition: Transition = { duration: 0.35, ease: "easeInOut" };
+const phoneFloatTransition: Transition = {
+  duration: 4.6,
+  repeat: Infinity,
+  repeatType: "mirror",
+  ease: "easeInOut",
+};
 
 export function PhoneMockupAnimated() {
   const shouldReduceMotion = useReducedMotion();
@@ -49,51 +49,82 @@ export function PhoneMockupAnimated() {
   const activeIndex = shouldReduceMotion ? 0 : index;
 
   return (
-    <div className="relative mx-auto w-[260px] sm:w-[280px] md:w-[300px]">
-      {/* Glow behind the phone — soft periwinkle halo */}
+    <div className="relative mx-auto w-[260px] px-3 pb-12 sm:w-[280px] md:w-[300px]">
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 translate-y-6 scale-[0.92] rounded-[3rem] bg-periwinkle/30 blur-3xl"
+        className="absolute inset-x-3 top-0 bottom-10 -z-20 translate-y-6 scale-[0.92] rounded-[3rem] bg-periwinkle/30 blur-3xl"
       />
 
-      {/* Phone bezel */}
-      <div className="relative aspect-[9/19.5] rounded-[2.75rem] bg-zinc-950 p-2.5 shadow-2xl ring-1 ring-white/10">
-        {/* Notch */}
-        <div
-          aria-hidden="true"
-          className="absolute left-1/2 top-2.5 z-20 h-6 w-28 -translate-x-1/2 rounded-b-2xl bg-zinc-950"
-        />
+      <motion.div
+        className="relative z-10"
+        animate={
+          shouldReduceMotion
+            ? { y: 0, rotate: 0, scale: 1 }
+            : { y: [0, -12, 0], rotate: [0, -1, 0], scale: [1, 1.01, 1] }
+        }
+        whileHover={
+          shouldReduceMotion
+            ? undefined
+            : {
+                rotate: [0, 8, -10, 6, 0],
+                scale: [1, 1.03, 1.03, 1.01, 1],
+              }
+        }
+        transition={
+          shouldReduceMotion
+            ? { duration: 0 }
+            : {
+                y: phoneFloatTransition,
+                rotate: { duration: 0.8, ease: "easeInOut" },
+                scale: { duration: 0.8, ease: "easeInOut" },
+              }
+        }
+      >
+        <div className="relative aspect-[9/19.5] rounded-[2.75rem] bg-zinc-950 p-2.5 shadow-[0_30px_80px_rgba(5,10,40,0.55),0_10px_24px_rgba(0,0,0,0.32)] ring-1 ring-white/5">
+          <div
+            aria-hidden="true"
+            className="absolute left-1/2 top-4 z-30 h-4 w-16 -translate-x-1/2 rounded-full bg-black shadow-[0_1px_0_rgba(255,255,255,0.05)]"
+          />
 
-        {/* Screen */}
-        <div className="relative h-full w-full overflow-hidden rounded-[2.1rem] bg-white">
-          {shouldReduceMotion ? (
-            <div className="absolute inset-0">{screens[0]}</div>
-          ) : (
-            <AnimatePresence initial={false}>
-              <motion.div
-                key={activeIndex}
-                className="absolute inset-0"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={fadeTransition}
-              >
-                {screens[activeIndex]}
-              </motion.div>
-            </AnimatePresence>
-          )}
+          <div className="relative h-full w-full overflow-hidden rounded-[2.1rem] bg-white">
+            {shouldReduceMotion ? (
+              <div className="absolute inset-0">{screens[0]}</div>
+            ) : (
+              <AnimatePresence initial={false}>
+                <motion.div
+                  key={activeIndex}
+                  className="absolute inset-0"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={fadeTransition}
+                >
+                  {screens[activeIndex]}
+                </motion.div>
+              </AnimatePresence>
+            )}
+          </div>
         </div>
-      </div>
+      </motion.div>
+
+      <motion.div
+        aria-hidden="true"
+        className="absolute inset-x-10 bottom-2 -z-10 h-10 rounded-full bg-black/35 blur-2xl"
+        animate={
+          shouldReduceMotion
+            ? { scaleX: 1, opacity: 0.32 }
+            : { scaleX: [1, 0.86, 1], opacity: [0.32, 0.2, 0.32] }
+        }
+        transition={shouldReduceMotion ? { duration: 0 } : phoneFloatTransition}
+      />
     </div>
   );
 }
 
-/* ---------- Screen 1: WhatsApp message from Flikker ---------- */
-
 function WhatsAppScreen() {
   return (
     <div className="flex h-full w-full flex-col bg-[#ece5dd]">
-      <div className="flex items-center gap-2.5 bg-[#128c7e] px-3 pt-10 pb-2.5 text-white">
+      <div className="flex items-center gap-2.5 bg-[#128c7e] px-3 pb-2.5 pt-10 text-white">
         <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white">
           <Logo variant="isotype" className="h-4 w-auto" />
         </div>
@@ -110,7 +141,7 @@ function WhatsAppScreen() {
           transition={{ duration: 0.25, delay: 0.1 }}
           className="max-w-[85%] rounded-lg rounded-tl-sm bg-white px-2.5 py-2 text-[10px] leading-snug text-zinc-800 shadow-sm"
         >
-          Hola María 👋 Gracias por venir hoy a Clínica Sonrisa.
+          Hola María 👋 Gracias por comprar hoy en Gains.
         </motion.div>
         <motion.div
           initial={{ opacity: 0, y: 6 }}
@@ -126,7 +157,7 @@ function WhatsAppScreen() {
           transition={{ duration: 0.25, delay: 0.85 }}
           className="max-w-[85%] rounded-lg rounded-tl-sm bg-white px-2.5 py-2 text-[10px] leading-snug text-zinc-800 shadow-sm"
         >
-          <span className="font-semibold text-[#128c7e]">flikker.app/r/clinica-sonrisa</span>
+          <span className="font-semibold text-[#128c7e]">flikker.app/r/gains</span>
         </motion.div>
         <motion.div
           initial={{ opacity: 0, y: 6 }}
@@ -134,7 +165,7 @@ function WhatsAppScreen() {
           transition={{ duration: 0.25, delay: 1.6 }}
           className="ml-auto max-w-[85%] rounded-lg rounded-tr-sm bg-[#dcf8c6] px-2.5 py-2 text-[10px] leading-snug text-zinc-800 shadow-sm"
         >
-          ¡Genial! La atención fue súper amable y rápida 😊
+          ¡Genial! Todo llegó perfecto y la atención fue rapidísima 😊
         </motion.div>
         <motion.div
           initial={{ opacity: 0, y: 6 }}
@@ -154,16 +185,14 @@ function WhatsAppScreen() {
   );
 }
 
-/* ---------- Screen 2: Rating landing with 5 stars ---------- */
-
 function ReviewRatingScreen() {
   return (
     <div className="flex h-full w-full flex-col items-center justify-center bg-white px-5 pt-10 text-center">
-      <Logo variant="default" className="h-6 w-auto" />
+      <Logo variant="default" className="h-15 w-auto" />
       <p className="mt-6 text-[11px] font-semibold uppercase tracking-[0.1em] text-periwinkle">
-        Clínica Sonrisa
+        Gains
       </p>
-      <h3 className="mt-2 text-[16px] font-extrabold leading-tight tracking-tight text-midnight font-display">
+      <h3 className="mt-2 font-display text-[16px] font-bold leading-tight tracking-tight text-midnight">
         ¿Cómo estuvo
         <br />
         tu experiencia?
@@ -186,8 +215,6 @@ function ReviewRatingScreen() {
     </div>
   );
 }
-
-/* ---------- Screen 3: Thank you + Google CTA ---------- */
 
 function ThankYouScreen() {
   return (
@@ -213,7 +240,7 @@ function ThankYouScreen() {
           />
         </svg>
       </motion.div>
-      <h3 className="mt-4 text-[15px] font-extrabold leading-tight text-midnight font-display">
+      <h3 className="mt-4 font-display text-[15px] font-bold leading-tight text-midnight">
         ¡Gracias, María!
       </h3>
       <p className="mt-2 text-[10px] leading-snug text-midnight/70">
@@ -234,23 +261,19 @@ function ThankYouScreen() {
   );
 }
 
-/* ---------- Screen 4: Google Reviews, stars filling in ---------- */
-
 function GoogleReviewsScreen() {
   return (
     <div className="flex h-full w-full flex-col bg-white pt-10">
       <div className="flex items-center justify-between px-3 pb-2">
         <div className="flex items-center gap-1.5">
           <GoogleG className="h-4 w-4" />
-          <span className="text-[10px] font-semibold text-midnight">
-            Clínica Sonrisa
-          </span>
+          <span className="text-[10px] font-semibold text-midnight">Gains</span>
         </div>
         <span className="text-[9px] text-midnight/50">Reseña</span>
       </div>
 
       <div className="flex flex-1 flex-col items-center justify-center gap-4 px-5">
-        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-periwinkle/20 text-[11px] font-bold text-periwinkle">
+      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-periwinkle/20 text-[11px] font-semibold text-periwinkle">
           M
         </div>
         <p className="text-center text-[10px] text-midnight/70">
@@ -281,8 +304,6 @@ function GoogleReviewsScreen() {
   );
 }
 
-/* ---------- Screen 5: Counter ticking up ---------- */
-
 function CounterScreen() {
   return (
     <div className="flex h-full w-full flex-col items-center justify-center bg-white px-5 pt-10 text-center">
@@ -301,9 +322,9 @@ function CounterScreen() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -14 }}
             transition={{ duration: 0.35 }}
-            className="text-5xl font-extrabold leading-none text-midnight"
+            className="text-5xl font-bold leading-none text-midnight"
           >
-            35
+            51
           </motion.span>
         </AnimatePresence>
       </div>
@@ -311,7 +332,12 @@ function CounterScreen() {
       <motion.span
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.15, type: "spring", stiffness: 300, damping: 18 }}
+        transition={{
+          delay: 0.15,
+          type: "spring",
+          stiffness: 300,
+          damping: 18,
+        }}
         className="mt-3 rounded-full bg-periwinkle/15 px-2.5 py-1 text-[9px] font-semibold text-periwinkle"
       >
         +1 nueva
@@ -325,14 +351,12 @@ function CounterScreen() {
           />
         ))}
         <span className="ml-1 text-[10px] font-semibold text-midnight">
-          4.8
+          5.0
         </span>
       </div>
     </div>
   );
 }
-
-/* ---------- Google G logo (simplified, brand-safe colors) ---------- */
 
 function GoogleG({ className }: { className?: string }) {
   return (

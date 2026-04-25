@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const alt =
-  "Flikker — Más reseñas de Google para tu clínica, automático";
+  "Flikker — Más reseñas de Google para tu negocio, automático";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -45,7 +45,7 @@ export default async function Image() {
               letterSpacing: "-0.03em",
             }}
           >
-            Tenés pacientes felices.
+            Tenés clientes felices.
           </div>
           <div
             style={{
@@ -58,7 +58,7 @@ export default async function Image() {
               marginTop: 4,
             }}
           >
-            Google no sabe que existen.
+            Google no lo está mostrando.
           </div>
           <div
             style={{
@@ -69,8 +69,8 @@ export default async function Image() {
               maxWidth: 900,
             }}
           >
-            Reseñas por WhatsApp después de cada consulta. Las buenas van a
-            Google. Las malas te avisan primero.
+            Reseñas por WhatsApp después de cada compra, visita o servicio. Las
+            buenas van a Google. Las malas te avisan primero.
           </div>
         </div>
 
@@ -85,7 +85,7 @@ export default async function Image() {
         >
           <span style={{ display: "flex" }}>flikker.uy</span>
           <span style={{ display: "flex" }}>
-            Para clínicas y centros de estética · Uruguay
+            Para negocios y marcas locales · Uruguay
           </span>
         </div>
       </div>

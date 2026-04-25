@@ -12,13 +12,13 @@ import {
 const steps = [
   {
     icon: CheckCircle2,
-    title: "El paciente termina la consulta",
+    title: "El cliente termina su compra o visita",
     body: "Se va como siempre. Nadie le pide una reseña cara a cara.",
   },
   {
     icon: MessageCircle,
     title: "Flikker le manda un WhatsApp",
-    body: "Un mensaje breve con tu nombre. Califica en un toque.",
+    body: "Un mensaje breve con tu marca. Califica en un toque.",
   },
   {
     icon: Star,
@@ -32,8 +32,8 @@ const steps = [
   },
   {
     icon: RefreshCcw,
-    title: "Volvés a estar presente",
-    body: "A los 30, 60, 90 días les recordamos volver. Reservan más.",
+    title: "Volvés a activar clientes",
+    body: "A los 30, 60 o 90 días les recordamos volver. Compran o reservan más.",
   },
 ];
 
@@ -49,7 +49,7 @@ export function Solution() {
   return (
     <section
       id="solucion"
-      className="bg-midnight text-mist px-6 py-24 md:px-8 md:py-32 scroll-mt-20"
+      className="scroll-mt-20 bg-midnight px-6 py-24 text-mist md:px-8 md:py-32"
     >
       <div className="mx-auto max-w-6xl">
         <motion.div
@@ -60,21 +60,21 @@ export function Solution() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="max-w-3xl"
         >
-          <span className="text-[12px] font-semibold tracking-[0.18em] uppercase text-periwinkle">
+          <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-periwinkle">
             La solución
           </span>
-          <h2 className="font-display mt-4 text-[32px] leading-[1.1] tracking-[-0.02em] font-extrabold md:text-[48px]">
-            De la consulta a la reseña. De la reseña al próximo paciente.
+          <h2 className="font-display mt-4 text-[32px] font-bold leading-[1.1] tracking-[-0.02em] md:text-[48px]">
+            De la compra a la reseña.
+            <br />
+            De la reseña al próximo cliente.
           </h2>
           <p className="mt-5 text-base leading-[1.6] text-mist/70 md:text-lg">
-            Un flujo continuo que convierte pacientes felices en reputación, y
-            reputación en nuevos turnos. Vos no tocás nada.
+            Un flujo continuo que convierte clientes felices en reputación, y
+            reputación en nuevas ventas. Vos no tocás nada.
           </p>
         </motion.div>
 
-        {/* Timeline */}
         <div className="relative mt-20">
-          {/* Connecting line — desktop */}
           <div
             aria-hidden="true"
             className="absolute left-0 right-0 top-5 hidden h-px bg-gradient-to-r from-transparent via-periwinkle/40 to-transparent md:block"
@@ -99,12 +99,11 @@ export function Solution() {
                   key={step.title}
                   variants={fadeUp}
                   transition={{ duration: 0.5, ease: "easeOut" }}
-                  className="relative flex flex-col items-start md:items-center md:text-center"
+                  className="relative flex flex-col items-center text-center"
                 >
-                  {/* Node */}
-                  <div className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-midnight ring-2 ring-periwinkle">
+                  <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full bg-midnight ring-2 ring-periwinkle md:h-12 md:w-12">
                     <Icon
-                      className="h-[18px] w-[18px] text-periwinkle"
+                      className="h-6 w-6 text-periwinkle md:h-5 md:w-5"
                       strokeWidth={2}
                       aria-hidden="true"
                     />
@@ -130,7 +129,7 @@ export function Solution() {
           transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
           className="mt-16 text-center text-sm text-mist/50"
         >
-          El ciclo se repite con cada paciente. Automático. Sin intervención.
+          El ciclo se repite con cada cliente. Automático. Sin intervención.
         </motion.p>
       </div>
     </section>

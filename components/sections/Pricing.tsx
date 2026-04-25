@@ -23,52 +23,36 @@ type Plan = {
 const plans: Plan[] = [
   {
     name: "Starter",
-    price: "USD 49",
+    price: "USD 69",
     priceSuffix: "/ mes",
-    setup: "Setup USD 99",
-    tagline: "Para clínicas chicas que recién arrancan.",
+    setup: "Sin setup · 1 local",
+    tagline: "Para empezar con baja fricción.",
     features: [
-      "Hasta 150 pacientes / mes",
-      "Pedido automático por WhatsApp",
-      "Filtro de reseñas negativas",
-      "Dashboard básico",
+      "Reseñas automatizadas",
+      "200 mensajes WhatsApp / mes",
+      "Dashboard básico mensual",
+      "Social proof widget",
     ],
     cta: "Empezar con Starter",
     message: WHATSAPP_MESSAGES.pricing_starter,
   },
   {
     name: "Pro",
-    price: "USD 89",
+    price: "USD 129",
     priceSuffix: "/ mes",
-    setup: "Setup USD 149",
+    setup: "Setup USD 99 · 1 local",
     tagline: "El equilibrio justo. Lo que recomendamos.",
     features: [
-      "Hasta 500 pacientes / mes",
-      "Reactivación de pacientes inactivos",
-      "Widget de reseñas para tu web",
-      "Bot de WhatsApp con FAQs",
-      "Reportes mensuales",
+      "Todo lo del Starter",
+      "Reseñas + feedback interno",
+      "600 mensajes WhatsApp / mes",
+      "Repeats ilimitadas",
+      "Dashboard completo + reporte mensual",
+      "Soporte WhatsApp en 24h hábil",
     ],
     cta: "Quiero el plan Pro",
     message: WHATSAPP_MESSAGES.pricing_pro,
     highlighted: true,
-  },
-  {
-    name: "Business",
-    price: "USD 149",
-    priceSuffix: "/ mes",
-    setup: "Setup USD 249",
-    tagline: "Para clínicas grandes o con varias sedes.",
-    features: [
-      "Pacientes ilimitados",
-      "Multi-sede (hasta 3 sucursales)",
-      "Integración con tu sistema de turnos",
-      "Soporte prioritario",
-      "Onboarding 1:1 con el fundador",
-      "Todo lo de Pro",
-    ],
-    cta: "Quiero el plan Business",
-    message: WHATSAPP_MESSAGES.pricing_business,
   },
 ];
 
@@ -96,13 +80,12 @@ function PlanCard({ plan }: { plan: Plan }) {
       whileHover={{ y: -6 }}
       transition={{ type: "spring", stiffness: 280, damping: 22 }}
       className={cn(
-        "group relative flex flex-col rounded-2xl p-8 md:p-10 transition-[box-shadow,border-color] duration-300",
+        "group relative flex flex-col rounded-2xl p-8 transition-[box-shadow,border-color] duration-300 md:p-10",
         highlighted
-          ? "bg-mist text-midnight shadow-xl ring-1 ring-periwinkle/40 hover:shadow-[0_30px_60px_-20px_rgba(145,136,245,0.55)] lg:scale-[1.05] lg:z-10"
-          : "bg-[#0a0f4a] text-mist border border-mist/10 hover:border-periwinkle/50 hover:shadow-[0_25px_50px_-20px_rgba(145,136,245,0.4)]"
+          ? "bg-mist text-midnight shadow-xl ring-1 ring-periwinkle/40 hover:shadow-[0_30px_60px_-20px_rgba(145,136,245,0.55)] lg:z-10 lg:scale-[1.05]"
+          : "border border-mist/10 bg-[#0a0f4a] text-mist hover:border-periwinkle/50 hover:shadow-[0_25px_50px_-20px_rgba(145,136,245,0.4)]"
       )}
     >
-      {/* Cursor-following glow */}
       <motion.div
         aria-hidden="true"
         style={{ background }}
@@ -110,7 +93,7 @@ function PlanCard({ plan }: { plan: Plan }) {
       />
 
       {highlighted && (
-        <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-periwinkle px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-midnight shadow-sm">
+        <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-periwinkle px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-midnight shadow-sm">
           Recomendado
         </span>
       )}
@@ -121,7 +104,7 @@ function PlanCard({ plan }: { plan: Plan }) {
         </h3>
 
         <div className="mt-5 flex items-baseline gap-2">
-          <span className="font-display text-[44px] font-extrabold leading-none text-periwinkle md:text-[56px]">
+          <span className="font-display text-[44px] font-bold leading-none text-periwinkle md:text-[56px]">
             {plan.price}
           </span>
           <span
@@ -196,21 +179,30 @@ export function Pricing() {
           <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-periwinkle">
             Precios
           </span>
-          <h2 className="font-display mt-4 text-[32px] font-extrabold leading-[1.1] tracking-[-0.02em] md:text-[48px]">
-            Sin letra chica. Sin sorpresas.
+          <h2 className="font-display mt-4 text-[32px] font-bold leading-[1.1] tracking-[-0.02em] md:text-[48px]">
+            Planes simples.
+            <br />
+            Uso claro.
           </h2>
         </div>
 
-        <div className="mt-16 grid gap-6 md:gap-8 lg:grid-cols-3 lg:items-stretch">
+        <div className="mx-auto mt-16 grid max-w-4xl gap-6 md:gap-8 lg:grid-cols-2 lg:items-stretch">
           {plans.map((plan) => (
             <PlanCard key={plan.name} plan={plan} />
           ))}
         </div>
 
-        <p className="mx-auto mt-12 max-w-2xl text-center text-sm leading-[1.6] text-mist/70 md:text-base">
-          <span className="font-bold text-mist">Garantía:</span> si en 60 días no
-          tenés al menos 20 reseñas nuevas, te devolvemos el setup. Sin drama.
-        </p>
+        <div className="mx-auto mt-12 max-w-2xl space-y-3 text-center">
+          <p className="text-sm leading-[1.6] text-mist/70 md:text-base">
+            <span className="font-semibold text-mist">Garantía:</span> si en 60 días no
+            tenés al menos 20 reseñas nuevas, te devolvemos el setup. Sin drama.
+          </p>
+          <p className="text-xs leading-[1.6] text-mist/50">
+            Uso variable de WhatsApp: si superás el cupo de tu plan y elegiste no
+            poner tope de envíos, se cobra el excedente. Starter: USD 0.10 por
+            conversación adicional. Pro: USD 0.08 por conversación adicional.
+          </p>
+        </div>
       </div>
     </section>
   );

@@ -1,5 +1,4 @@
 import { CTAFinal } from "@/components/sections/CTAFinal";
-import { Demo } from "@/components/sections/Demo";
 import { FAQ } from "@/components/sections/FAQ";
 import { Features } from "@/components/sections/Features";
 import { Footer } from "@/components/sections/Footer";
@@ -21,10 +20,9 @@ export default function Home() {
         <Hero />
         <Problem />
         <Solution />
-        <Demo />
         <ImpactCalculator />
         <Features />
-        <Testimonials hasTestimonials={false} />
+        <Testimonials hasTestimonials />
         <Pricing />
         <FAQ />
         <CTAFinal />

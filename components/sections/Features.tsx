@@ -2,8 +2,8 @@
 
 import {
   BarChart3,
-  Bot,
   LayoutGrid,
+  LifeBuoy,
   RefreshCw,
   ShieldCheck,
   Zap,
@@ -15,7 +15,7 @@ const features: { icon: LucideIcon; title: string; body: string }[] = [
   {
     icon: Zap,
     title: "Reseñas automáticas",
-    body: "Se envían solas después de cada consulta.",
+    body: "Se envían solas después de cada compra, visita o servicio.",
   },
   {
     icon: ShieldCheck,
@@ -25,7 +25,7 @@ const features: { icon: LucideIcon; title: string; body: string }[] = [
   {
     icon: RefreshCw,
     title: "Reactivación",
-    body: "Recupera pacientes que no vuelven hace meses.",
+    body: "Recupera clientes que no vuelven hace meses.",
   },
   {
     icon: LayoutGrid,
@@ -33,9 +33,9 @@ const features: { icon: LucideIcon; title: string; body: string }[] = [
     body: "Mostrá tus reseñas de Google en tu sitio.",
   },
   {
-    icon: Bot,
-    title: "Bot de WhatsApp",
-    body: "Responde preguntas frecuentes 24 horas al día.",
+    icon: LifeBuoy,
+    title: "Soporte",
+    body: "Te acompañamos con respuesta rápida para que todo funcione sin fricción.",
   },
   {
     icon: BarChart3,
@@ -54,7 +54,7 @@ export function Features() {
   const initial = shouldReduceMotion ? false : "hidden";
 
   return (
-    <section className="bg-mist text-midnight px-6 py-24 md:px-8 md:py-32">
+    <section className="bg-mist px-6 py-24 text-midnight md:px-8 md:py-32">
       <div className="mx-auto max-w-6xl">
         <motion.div
           initial={initial}
@@ -63,27 +63,21 @@ export function Features() {
           variants={fadeUp}
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
-          <span className="text-[12px] font-semibold tracking-[0.18em] uppercase text-periwinkle">
+          <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-periwinkle">
             Qué incluye
           </span>
-          <h2 className="font-display mt-4 max-w-3xl text-[32px] leading-[1.1] tracking-[-0.02em] font-extrabold md:text-[48px]">
-            Todo lo que necesitás. Nada de lo que sobra.
+          <h2 className="font-display mt-4 max-w-3xl text-[32px] font-bold leading-[1.1] tracking-[-0.02em] md:text-[48px]">
+            Todo lo que necesitás.
+            <br />
+            Nada de lo que sobra.
           </h2>
         </motion.div>
 
-        <motion.div
-          initial={initial}
-          whileInView="show"
-          viewport={{ once: true, margin: "-80px" }}
-          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.06, delayChildren: 0.1 } } }}
-          className="mt-14 grid gap-6 md:grid-cols-3 md:gap-8"
-        >
+        <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 md:gap-8 lg:grid-cols-3">
           {features.map(({ icon: Icon, title, body }) => (
-            <motion.div
+            <div
               key={title}
-              variants={fadeUp}
-              transition={{ duration: 0.45, ease: "easeOut" }}
-              className="rounded-lg border border-midnight/10 bg-white/40 p-6 transition-colors hover:border-periwinkle"
+              className="flex min-h-[220px] flex-col rounded-lg border border-midnight/10 bg-white/40 p-6 transition-colors hover:border-periwinkle"
             >
               <Icon
                 aria-hidden="true"
@@ -94,9 +88,9 @@ export function Features() {
               <p className="mt-2 text-sm leading-[1.55] text-midnight/70">
                 {body}
               </p>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

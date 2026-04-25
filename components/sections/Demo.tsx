@@ -5,7 +5,7 @@ export function Demo() {
         <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-periwinkle">
           Demo en vivo
         </span>
-        <h2 className="font-display mt-4 max-w-3xl text-[32px] font-extrabold leading-[1.1] tracking-[-0.02em] md:text-[48px]">
+        <h2 className="font-display mt-4 max-w-3xl text-[32px] font-bold leading-[1.1] tracking-[-0.02em] md:text-[48px]">
           Así se ve una conversación real.
         </h2>
 

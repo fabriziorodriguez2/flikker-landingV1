@@ -1,5 +1,7 @@
 "use client";
 
+import type { ReactNode } from "react";
+
 import {
   Accordion,
   AccordionContent,
@@ -8,30 +10,39 @@ import {
 } from "@/components/ui/accordion";
 import { trackEvent } from "@/lib/analytics";
 
-const faqs: { q: string; a: string }[] = [
+const faqs: { q: string; a: ReactNode }[] = [
   {
     q: "¿Cómo sabe Flikker cuándo mandar el mensaje?",
-    a: "Conectamos Flikker a tu agenda o te damos un panel simple para marcar los turnos terminados. El mensaje se envía unas horas después, cuando el paciente ya está tranquilo en su casa.",
+    a: "Podemos conectarlo a tu operación o darte un panel simple para marcar ventas, visitas o servicios completados. El mensaje sale después, cuando el cliente ya terminó su experiencia.",
   },
   {
-    q: "¿Y si un paciente me deja una reseña mala?",
-    a: "Ese es el punto clave. Flikker filtra: si la experiencia fue buena, llevamos al paciente a Google. Si fue mala, te llega a vos primero en privado para que puedas resolverlo antes de que se vuelva público.",
+    q: "¿Y si me dejan una reseña mala?",
+    a: "Ese es el punto clave. Flikker filtra: si la experiencia fue buena, llevamos al cliente a Google. Si fue mala, te llega a vos primero en privado para que puedas resolverlo antes de que se vuelva público.",
   },
   {
-    q: "¿Necesito tener web o perfil de Instagram?",
-    a: "No. Solo necesitás tu Ficha de Google Business (la que aparece en Maps). Si todavía no la tenés, te ayudamos a crearla durante el setup.",
+    q: "¿Necesito tener web o Instagram?",
+    a: (
+      <div className="space-y-3">
+        <p>
+          No. Si no tenés web o Instagram, te lo diseñamos y creamos.* Y si
+          tampoco tenés tu ficha de Google Business Profile, también te ayudamos
+          a dejarla pronta durante el setup.
+        </p>
+        <p className="text-sm text-midnight/60">* Por un precio aparte.</p>
+      </div>
+    ),
   },
   {
     q: "¿Es legal pedir reseñas por WhatsApp?",
-    a: "Sí. Siempre que el paciente haya dado su número para contacto (lo cual es estándar en una consulta), podés escribirle. Flikker además suma un opt-out visible en cada mensaje.",
+    a: "Sí. Siempre que la persona haya dejado su número para contacto comercial o de atención, podés escribirle. Flikker además suma un opt-out visible en cada mensaje.",
   },
   {
-    q: "¿Qué pasa con los datos de mis pacientes?",
+    q: "¿Qué pasa con los datos de mis clientes?",
     a: "Están en servidores seguros, cifrados, y nunca se comparten con terceros. Cumplimos con la Ley 18.331 de Protección de Datos Personales de Uruguay.",
   },
   {
     q: "¿Cuánto tarda en configurarse?",
-    a: "Entre 24 y 48 horas. Vos nos pasás el número de WhatsApp Business, la ficha de Google y una lista inicial de pacientes. El resto lo hacemos nosotros.",
+    a: "Entre 24 y 48 horas. Vos nos pasás el número de WhatsApp Business, la ficha de Google y una primera lista o fuente de clientes. El resto lo hacemos nosotros.",
   },
   {
     q: "¿Puedo cancelar cuando quiera?",
@@ -53,7 +64,7 @@ export function FAQ() {
       className="scroll-mt-20 bg-mist px-6 py-24 text-midnight md:px-8 md:py-32"
     >
       <div className="mx-auto max-w-3xl">
-        <h2 className="font-display text-[32px] font-extrabold leading-[1.1] tracking-[-0.02em] md:text-[48px]">
+        <h2 className="font-display text-[32px] font-bold leading-[1.1] tracking-[-0.02em] md:text-[48px]">
           Dudas comunes.
         </h2>
 

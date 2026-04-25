@@ -34,18 +34,18 @@ function CountUp({ value }: { value: number }) {
 
 export function ImpactCalculator() {
   const { slider, reviewsIn60Days, reactivated } = CALCULATOR_FORMULAS;
-  const [patients, setPatients] = useState<number>(slider.default);
+  const [customers, setCustomers] = useState<number>(slider.default);
 
   const reviews = useMemo(
-    () => reviewsIn60Days(patients),
-    [patients, reviewsIn60Days]
+    () => reviewsIn60Days(customers),
+    [customers, reviewsIn60Days]
   );
   const reactivations = useMemo(
-    () => reactivated(patients),
-    [patients, reactivated]
+    () => reactivated(customers),
+    [customers, reactivated]
   );
 
-  const progress = ((patients - slider.min) / (slider.max - slider.min)) * 100;
+  const progress = ((customers - slider.min) / (slider.max - slider.min)) * 100;
   const trackStyle = {
     background: `linear-gradient(to right, var(--color-periwinkle) 0%, var(--color-periwinkle) ${progress}%, rgba(0, 4, 65, 0.12) ${progress}%, rgba(0, 4, 65, 0.12) 100%)`,
   };
@@ -85,40 +85,40 @@ export function ImpactCalculator() {
     >
       <div className="mx-auto max-w-3xl text-midnight">
         <div className="text-center">
-          <span className="text-[11px] font-semibold tracking-[0.18em] uppercase text-periwinkle">
+          <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-periwinkle">
             Calculá tu impacto
           </span>
-          <h2 className="font-display mt-3 text-[26px] leading-[1.1] tracking-[-0.02em] font-extrabold md:text-[36px]">
+          <h2 className="font-display mt-3 text-[26px] font-bold leading-[1.1] tracking-[-0.02em] md:text-[36px]">
             ¿Cuántas reseñas podrías tener en 60 días?
           </h2>
         </div>
 
         <div className="mt-8 rounded-2xl border border-midnight/10 bg-white/70 p-6 shadow-sm backdrop-blur-sm md:p-8">
-          <label htmlFor="patients" className="block">
+          <label htmlFor="customers" className="block">
             <span className="text-xs font-medium text-midnight/70">
-              Atiendo
+              Atiendo o vendo a
             </span>
             <div className="mt-1.5 flex items-baseline gap-2.5">
-              <span className="font-display text-[40px] font-extrabold leading-none text-periwinkle tabular-nums md:text-[52px]">
-                {patients}
+              <span className="font-display tabular-nums text-[40px] font-bold leading-none text-periwinkle md:text-[52px]">
+                {customers}
               </span>
               <span className="text-sm font-medium text-midnight/70 md:text-base">
-                pacientes por mes
+                clientes por mes
               </span>
             </div>
           </label>
 
           <input
-            id="patients"
+            id="customers"
             type="range"
             min={slider.min}
             max={slider.max}
             step={slider.step}
-            value={patients}
-            onChange={(e) => setPatients(Number(e.target.value))}
+            value={customers}
+            onChange={(e) => setCustomers(Number(e.target.value))}
             style={trackStyle}
-            aria-label="Pacientes por mes"
-            aria-valuetext={`${patients} pacientes por mes`}
+            aria-label="Clientes por mes"
+            aria-valuetext={`${customers} clientes por mes`}
             className={sliderClasses}
           />
           <div className="mt-1.5 flex justify-between text-[11px] font-medium text-midnight/50">
@@ -130,7 +130,7 @@ export function ImpactCalculator() {
 
           <ul className="space-y-4">
             <li className="flex flex-col items-start gap-0.5 md:flex-row md:items-baseline md:gap-3">
-              <span className="font-display text-[22px] font-extrabold leading-none text-periwinkle md:text-[28px]">
+              <span className="font-display text-[22px] font-bold leading-none text-periwinkle md:text-[28px]">
                 ~<CountUp value={reviews} />
               </span>
               <span className="text-sm text-midnight/80 md:text-base">
@@ -138,15 +138,15 @@ export function ImpactCalculator() {
               </span>
             </li>
             <li className="flex flex-col items-start gap-0.5 md:flex-row md:items-baseline md:gap-3">
-              <span className="font-display text-[22px] font-extrabold leading-none text-periwinkle md:text-[28px]">
+              <span className="font-display text-[22px] font-bold leading-none text-periwinkle md:text-[28px]">
                 +<CountUp value={reactivations} />
               </span>
               <span className="text-sm text-midnight/80 md:text-base">
-                pacientes reactivados
+                clientes reactivados
               </span>
             </li>
             <li className="flex flex-col items-start gap-0.5 md:flex-row md:items-baseline md:gap-3">
-              <span className="font-display text-[22px] font-extrabold leading-none text-periwinkle md:text-[28px]">
+              <span className="font-display text-[22px] font-bold leading-none text-periwinkle md:text-[28px]">
                 de ~12% a ~35%
               </span>
               <span className="text-sm text-midnight/80 md:text-base">
@@ -160,7 +160,7 @@ export function ImpactCalculator() {
               message={message}
               onClick={() =>
                 trackEvent("Calculator Submit", {
-                  patients,
+                  customers,
                   reviews,
                   reactivations,
                 })

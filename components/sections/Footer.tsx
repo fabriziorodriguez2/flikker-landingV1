@@ -3,7 +3,7 @@ import { Mail, MessageCircle } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { NAV_LINKS, WHATSAPP_NUMBER, buildWhatsAppUrl } from "@/lib/constants";
 
-const CONTACT_EMAIL = "hola@flikker.uy";
+const CONTACT_EMAIL = "fabrizio.rodriguez7274@gmail.com";
 
 function InstagramIcon({ className }: { className?: string }) {
   return (
@@ -49,7 +49,7 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-mist px-6 pt-20 pb-10 text-midnight md:px-8">
+    <footer className="bg-mist px-6 pb-10 pt-20 text-midnight md:px-8">
       <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-4 md:gap-10">
         <div className="md:col-span-1">
           <Logo variant="default" className="h-8 w-auto" />
@@ -92,9 +92,7 @@ export function Footer() {
             </li>
             <li>
               <a
-                href={buildWhatsAppUrl(
-                  "Hola! Tengo una consulta sobre Flikker."
-                )}
+                href={buildWhatsAppUrl("Hola! Tengo una consulta sobre Flikker.")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-sm text-midnight/80 transition-colors hover:text-periwinkle"
@@ -156,7 +154,7 @@ export function Footer() {
 
       <div className="mx-auto mt-16 flex max-w-6xl flex-col items-start justify-between gap-3 border-t border-midnight/10 pt-6 text-xs text-midnight/55 md:flex-row md:items-center">
         <p>© {year} Flikker. Todos los derechos reservados.</p>
-        <p>Hecho en Uruguay con café malo.</p>
+        <p>Hecho en Uruguay.</p>
       </div>
     </footer>
   );

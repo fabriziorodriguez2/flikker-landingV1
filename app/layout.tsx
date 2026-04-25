@@ -7,7 +7,7 @@ import "./globals.css";
 const syne = Syne({
   variable: "--font-syne",
   subsets: ["latin"],
-  weight: ["700", "800"],
+  weight: ["600", "700", "800"],
   display: "swap",
 });
 
@@ -20,9 +20,9 @@ const manrope = Manrope({
 
 const SITE_URL = "https://flikker.uy";
 const SITE_NAME = "Flikker";
-const TITLE = "Flikker · Más reseñas de Google para tu clínica, automático";
+const TITLE = "Flikker｜Más reseñas de Google para tu negocio, automático";
 const DESCRIPTION =
-  "Flikker pide reseñas por WhatsApp después de cada consulta. Las buenas llegan a Google. Las malas te avisan primero a vos.";
+  "Flikker pide reseñas por WhatsApp después de cada compra, visita o servicio. Las buenas llegan a Google. Las malas te avisan primero a vos.";
 
 const PLAUSIBLE_DOMAIN =
   process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN ?? "flikker.uy";
@@ -38,12 +38,12 @@ export const metadata: Metadata = {
   authors: [{ name: "Flikker" }],
   keywords: [
     "reseñas Google",
-    "reputación online clínicas",
+    "reputación online",
     "WhatsApp automation",
     "SEO local",
     "Google Business Profile",
-    "clínica dental Uruguay",
-    "estética Montevideo",
+    "negocios locales",
+    "reseñas para negocios",
   ],
   alternates: {
     canonical: "/",
@@ -91,19 +91,13 @@ const jsonLd = {
       "@type": "Offer",
       name: "Starter",
       priceCurrency: "USD",
-      price: "49",
+      price: "69",
     },
     {
       "@type": "Offer",
       name: "Pro",
       priceCurrency: "USD",
-      price: "89",
-    },
-    {
-      "@type": "Offer",
-      name: "Business",
-      priceCurrency: "USD",
-      price: "149",
+      price: "129",
     },
   ],
 };
@@ -119,7 +113,7 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       className={`${syne.variable} ${manrope.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-mist text-midnight font-body flex flex-col">
+      <body className="flex min-h-full flex-col bg-mist font-body text-midnight">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
