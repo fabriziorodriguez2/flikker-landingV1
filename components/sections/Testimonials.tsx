@@ -213,11 +213,6 @@ function CaseStudyCard({
                 Google Reviews
               </span>
             </div>
-
-            <p className="mt-6 text-sm leading-[1.55] text-mist/70">
-              Todavía no hay testimonio del dueño, así que lo mostramos como caso
-              real con mejoras concretas visibles en Google y en la web.
-            </p>
           </div>
 
           <div className="mt-8 grid gap-4">
